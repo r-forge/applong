@@ -31,6 +31,9 @@
     
   }
 
+  Data set \sQuote{obesity} was excluded since it is a subset of
+  \sQuote{muscatine} and may not be required.
+
 }
 
 
