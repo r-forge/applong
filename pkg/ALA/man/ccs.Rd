@@ -25,12 +25,14 @@
   A data frame with 2501 observations on the following 5 variables.
 
   \describe{
+
     \item{\code{id}}{a factor with 2501 levels}
     \item{\code{problems}}{a factor with levels \code{good} and \code{bad}}
     \item{\code{parent.status}}{a factor with levels \code{otherwise}
       and \code{single}}
     \item{\code{parent.report}}{a numeric vector}
     \item{\code{teacher.report}}{a numeric vector}
+    
   }
 
 }

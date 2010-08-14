@@ -26,7 +26,7 @@
     
     \item{\code{id}}{a factor with 1151 levels}
     \item{\code{dose}}{a factor with levels \code{low} and \code{high}}
-    \item{\code{day}}{a numeric vector}
+    \item{\code{day}}{a numeric vector; days since initial injection}
     \item{\code{amenorrhea}}{a numeric vector indicating
       status(0=\code{no}; 1=\code{yes})}
     

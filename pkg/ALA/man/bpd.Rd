@@ -25,11 +25,13 @@
   A data frame with 223 observations on the following 5 variables.
 
   \describe{
+
     \item{\code{id}}{a factor with 223 levels}
     \item{\code{bpd}}{a numeric vector}
     \item{\code{birth.weight}}{a numeric vector}
     \item{\code{gestational.age}}{a numeric vector}
     \item{\code{toxemia}}{a numeric vector}
+
   }
 
 }
