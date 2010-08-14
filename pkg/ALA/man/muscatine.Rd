@@ -26,7 +26,7 @@
     \item{\code{gender}}{a factor with levels \code{M} and \code{F}}
     \item{\code{age0}}{a numeric vector; initial age}
     \item{\code{age}}{a numeric vector}
-    \item{\code{occasion}}{a numeric vector}
+    \item{\code{year}}{a numeric vector}
     \item{\code{obesity}}{a numeric vector; (0: non-obese; 1:obese)}
   }
 }
@@ -48,7 +48,9 @@
 
 \note{
 
-  Original variable names have been adapted to R conventions.
+  Original variable names have been adapted to R conventions.  Variable
+  \code{Occasion} in the source was recoded to \code{year}, as that is
+  what it represents.
 
   Age denotes mid-point of age-cohort.
 
