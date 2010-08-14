@@ -80,9 +80,9 @@
 
 \references{
 
-  Machin D, Farley T, Busca B, Campbell M and d'Arcangues C (1988)
+  Machin D, Farley T, Busca B, Campbell M, d'Arcangues C (1988)
   Assessing changes in vaginal bleeding patterns in contracepting women.
-  Contraception, 38, 165-179.
+  Contraception 38:165-179.
 
 }
 
