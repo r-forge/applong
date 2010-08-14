@@ -21,6 +21,16 @@
   The package provides all the data sets from Fitzmaurice et al.'s book,
   and fits some of the models therein using lme4.
 
+  The following data sets are not included, since they are already
+  available elsewhere:
+
+  \describe{
+    
+    \item{dental:}{\code{data(Orthodont, package="nlme")}}
+    \item{melanoma:}{\code{data(Mmmec, package="mlmRev")}}
+    
+  }
+
 }
 
 
@@ -39,12 +49,6 @@
 }
 
 % -------------------------------------------------------------------------
-
-\examples{
-
-
-}
-
 
 \author{
 
