@@ -25,10 +25,10 @@
   \describe{
     
     \item{\code{id}}{a factor with 1151 levels}
-    \item{\code{dose}}{a factor with levels \dQuote{low} and \dQuote{high}}
+    \item{\code{dose}}{a factor with levels \code{low} and \code{high}}
     \item{\code{day}}{a numeric vector}
     \item{\code{amenorrhea}}{a numeric vector indicating
-      status(0=\dQuote{no}; 1=\dQuote{yes})}
+      status(0=\code{no}; 1=\code{yes})}
     
   }
   
