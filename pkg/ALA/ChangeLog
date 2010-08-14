@@ -1,5 +1,13 @@
 2010-08-14  Sebastian P. Luque <spluque@gmail.com>
 
+	* ChangeLog, data/rat.rda, data/respir.rda, data/skin.rda,
+	  data/smoking.rda, data/tlc.rda, data/toenail.rda, data/tumor.rda,
+	  data/tvsfp.rda, man/rat.Rd, man/respir.Rd, man/skin.Rd,
+	  man/smoking.Rd, man/tlc.Rd, man/toenail.Rd, man/tumor.Rd,
+	  man/tvsfp.Rd:
+	  Adding last batch of data sets and documentation. Package passes
+	  R CMD check.
+
 	* data/epilepsy.rda, data/exercise.rda, data/fat.rda,
 	  data/fev1.rda, data/headache.rda, data/lead.rda,
 	  data/leprosy.rda, data/muscatine.rda, data/ntp.rda,
