@@ -26,11 +26,11 @@
   
   \describe{
     
-    \item{\code{center}}{a factor with levels \code{C1} and \code{C2}}
     \item{\code{id}}{a factor with 56 levels}
+    \item{\code{gender}}{a factor with levels \code{F} and \code{M}}
+    \item{\code{center}}{a factor with levels \code{C1} and \code{C2}}
     \item{\code{treatment}}{a factor with levels \code{active} and
       \code{placebo}}
-    \item{\code{gender}}{a factor with levels \code{F} and \code{M}}
     \item{\code{age}}{a numeric vector}
     \item{\code{visit}}{a numeric vector}
     \item{\code{status}}{a numeric vector (0: poor response; 1: good
