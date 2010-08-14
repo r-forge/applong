@@ -27,7 +27,8 @@
     \item{\code{id}}{a factor with 1151 levels}
     \item{\code{dose}}{a factor with levels \dQuote{low} and \dQuote{high}}
     \item{\code{day}}{a numeric vector}
-    \item{\code{amenorrhea}}{a factor with levels \dQuote{no} and \dQuote{yes}}
+    \item{\code{amenorrhea}}{a numeric vector indicating
+      status(0=\dQuote{no}; 1=\dQuote{yes})}
     
   }
   
@@ -56,6 +57,15 @@
   successive three month intervals.  A feature of this clinical trial is
   that there was substantial dropout.  More than one third of the women
   dropped out before the completion of the trial.
+
+}
+
+
+\note{
+
+  Original variable names have been adapted to R conventions.  Variable
+  day was recoded from the original sequential number to the
+  corresponding number of days since initial injection.
 
 }
 
