@@ -1,0 +1,4 @@
+2010-08-13  Sebastian P. Luque  <spluque@gmail.com>
+
+	* man/amenorrhea.Rd:
+	  Renamed variable "status" to "amenorrhea".
