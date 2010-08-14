@@ -1,3 +1,32 @@
+2010-08-14  Sebastian P. Luque <spluque@gmail.com>
+
+	* data/epilepsy.rda, data/exercise.rda, data/fat.rda,
+	  data/fev1.rda, data/headache.rda, data/lead.rda,
+	  data/leprosy.rda, data/muscatine.rda, data/ntp.rda,
+	  man/ALA-package.Rd, man/epilepsy.Rd, man/exercise.Rd, man/fat.Rd,
+	  man/fev1.Rd, man/headache.Rd, man/lead.Rd, man/leprosy.Rd,
+	  man/muscatine.Rd, man/ntp.Rd:
+	  Adding data sets and documentation. Improved ALA-package.Rd.
+
+	* data/cd4.rda, data/chd.rda, data/cholesterol.rda, data/ecg.rda,
+	  man/amenorrhea.Rd, man/bpd.Rd, man/ccs.Rd, man/cd4.Rd,
+	  man/chd.Rd, man/cholesterol.Rd, man/ecg.Rd:
+	  Adding data sets and documentation.
+
+	* data/ccs.rda, man/amenorrhea.Rd, man/ccs.Rd:
+	  Adding ccs data. Consistency of Rd syntax in amenorrhea.
+
+	* data/bpd.rda, man/amenorrhea.Rd, man/bpd.Rd:
+	  bpd data. Corrected reference for amenorrhea.
+
+	* data/amenorrhea.rda, man/amenorrhea.Rd:
+	  Variable "amenorrhea" should be an integer response, not a
+	  factor.
+
+	* ChangeLog, DESCRIPTION, data, data/amenorrhea.rda, man,
+	  man/ALA-package.Rd, man/amenorrhea.Rd, tests:
+	  First data set. Package passes R CMD check.
+
 2010-08-13  Sebastian P. Luque  <spluque@gmail.com>
 
 	* man/amenorrhea.Rd:
