@@ -1,4 +1,22 @@
+2010-08-15  Sebastian P. Luque <spluque@gmail.com>
+
+	* man/tvsfp.Rd:
+	  Clarify adding of 'id' column.
+
 2010-08-14  Sebastian P. Luque <spluque@gmail.com>
+
+	* data/muscatine.rda:
+	  Updated 'muscatine' data frame for renamed 'occasion' column.
+
+	* man/ALA-package.Rd:
+	  Added note about 'obesity'.
+
+	* data/respir.rda, man/respir.Rd:
+	  Reorder columns for readability.
+
+	* man/muscatine.Rd:
+	  Renamed and recoded "occasion" variable so that it corresponds to
+	  year of observation.
 
 	* ChangeLog, data/rat.rda, data/respir.rda, data/skin.rda,
 	  data/smoking.rda, data/tlc.rda, data/toenail.rda, data/tumor.rda,
