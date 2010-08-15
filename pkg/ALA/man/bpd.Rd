@@ -17,7 +17,7 @@
 }
 
 
-\usage{data(amenorrhea)}
+\usage{data(bpd)}
 
 
 \format{

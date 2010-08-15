@@ -31,7 +31,7 @@
     \item{\code{period}}{a factor with levels \code{1} and \code{2}}
     \item{\code{n}}{a numeric vector}
     \item{\code{ecg}}{a numeric vector; ECG response (1=abnormal,
-      0=normal}
+      0=normal)}
     
   }
   
