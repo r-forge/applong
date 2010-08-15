@@ -66,6 +66,7 @@
 
   Original variable names have been adapted to R conventions.  Data were
   reshaped from wide to long format and the response named \code{THKS}.
+  A new ID column was added, relative to the source.
   
 }
 
