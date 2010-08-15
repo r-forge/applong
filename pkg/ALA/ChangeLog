@@ -1,5 +1,8 @@
 2010-08-15  Sebastian P. Luque <spluque@gmail.com>
 
+	* man/bpd.Rd, man/ecg.Rd, man/rat.Rd:
+	  Minor documentation corrections.
+
 	* man/tvsfp.Rd:
 	  Clarify adding of 'id' column.
 
