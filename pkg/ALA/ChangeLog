@@ -1,5 +1,8 @@
 2010-08-16  Sebastian P. Luque <spluque@gmail.com>
 
+	* data/cholesterol.rda, inst/ALA.R, man/cholesterol.Rd:
+	  Shorten level for factor 'treatment'.
+
 	* inst/ALA.R:
 	  Updated work-flow.
 
