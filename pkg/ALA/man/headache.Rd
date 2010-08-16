@@ -4,8 +4,8 @@
 
 % -------------------------------------------------------------------------
 
-\title{Data from randomized crossover study comparing two analgesic
-  drugs (A and B) and placebo for relief of tension headaches}
+\title{Randomized crossover study comparing two analgesic drugs (A and
+  B) and placebo for relief of tension headaches}
 
 
 \description{

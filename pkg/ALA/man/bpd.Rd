@@ -4,8 +4,7 @@
 
 % -------------------------------------------------------------------------
 
-\title{Data on Bronchopulmonary Dysplasia (BPD) from low birth weight
-  infants.}
+\title{Bronchopulmonary Dysplasia (BPD) from low birth weight infants}
 
 
 \description{

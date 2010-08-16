@@ -4,8 +4,8 @@
 
 % -------------------------------------------------------------------------
 
-\title{Data on count of leprosy bacilli pre- and post-treatment from a
-  clinical trial of antibiotics for leprosy}
+\title{Count of leprosy bacilli pre- and post-treatment from a clinical
+  trial of antibiotics for leprosy}
 
 
 \description{

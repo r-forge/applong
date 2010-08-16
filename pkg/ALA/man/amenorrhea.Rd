@@ -4,7 +4,7 @@
 
 % -------------------------------------------------------------------------
 
-\title{Data on Amenorrhea from Clinical Trial of Contracepting Women}
+\title{Amenorrhea from Clinical Trial of Contracepting Women}
 
 
 \description{

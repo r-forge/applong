@@ -4,8 +4,8 @@
 
 % -------------------------------------------------------------------------
 
-\title{Data on serum cholesterol from the National Cooperative Gallstone
-  Study (NCGS)}
+\title{Serum cholesterol from the National Cooperative Gallstone Study
+  (NCGS)}
 
 
 \description{

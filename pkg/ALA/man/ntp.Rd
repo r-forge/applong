@@ -4,7 +4,7 @@
 
 % -------------------------------------------------------------------------
 
-\title{Data from developmental toxicity study of ethylene glycol (EG)}
+\title{Developmental toxicity study of ethylene glycol (EG)}
 
 
 \description{

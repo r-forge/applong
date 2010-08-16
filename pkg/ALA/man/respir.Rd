@@ -4,8 +4,8 @@
 
 % -------------------------------------------------------------------------
 
-\title{Data from a clinical trial comparing two treatments for a
-  respiratory illness}
+\title{Clinical trial comparing two treatments for a respiratory
+  illness}
 
 
 \description{

@@ -4,7 +4,7 @@
 
 % -------------------------------------------------------------------------
 
-\title{Data on seizure counts for 59 epileptics}
+\title{Seizure counts for 59 epileptics}
 
 
 \description{

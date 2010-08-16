@@ -4,7 +4,7 @@
 
 % -------------------------------------------------------------------------
 
-\title{Data on risk factors for coronary heart disease (CHD)}
+\title{Risk factors for coronary heart disease (CHD)}
 
 
 \description{

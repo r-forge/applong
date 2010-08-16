@@ -4,7 +4,7 @@
 
 % -------------------------------------------------------------------------
 
-\title{Data on tumor recurrence for patients with bladder cancer}
+\title{Tumor recurrence for patients with bladder cancer}
 
 
 \description{

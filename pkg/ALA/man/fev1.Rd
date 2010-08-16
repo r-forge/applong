@@ -5,7 +5,7 @@
 % -------------------------------------------------------------------------
 
 \title{Subsample (N=300) of data on FEV1 and height for girls living in
-  Topeka from the Six Cities Study of Air Pollution and Health.}
+  Topeka from the Six Cities Study of Air Pollution and Health}
 
 
 \description{

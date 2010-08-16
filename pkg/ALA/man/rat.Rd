@@ -4,7 +4,7 @@
 
 % -------------------------------------------------------------------------
 
-\title{Data on weight gain in rats exposed to thiouracil and thyroxin}
+\title{Weight gain in rats exposed to thiouracil and thyroxin}
 
 
 \description{
