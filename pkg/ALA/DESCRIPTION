@@ -9,4 +9,5 @@ Description: Data sets used in Fitzmaurice et al.'s book and models fit
              therein using lme4.
 License: GPL-3
 LazyLoad: yes
+LazyData: yes
 URL: http://r-forge.r-project.org/projects/applong
