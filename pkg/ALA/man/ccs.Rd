@@ -30,9 +30,9 @@
     \item{\code{problems}}{a factor with levels \code{good} and \code{bad}}
     \item{\code{parent.status}}{a factor with levels \code{otherwise}
       and \code{single}}
-    \item{\code{parent.report}}{a factor with levels \code{no} and
-      \code{yes}}
-    \item{\code{teacher.report}}{a factor with levels \code{no} and
+    \item{\code{respondent}}{a factor with levels \code{parent} and
+      \code{teacher}}
+    \item{\code{behaviour}}{a factor with levels \code{no} and
       \code{yes}}
     
   }
@@ -61,9 +61,10 @@
 
 \note{
 
-  Original variable names have been adapted to R conventions.  Factor
-  problems level \code{bad} corresponds to \dQuote{fair to bad} in
-  Fitzmaurice's et al. source.
+  Original variable names have been adapted to R conventions.  Data were
+  reshaped from wide to long format and the response named
+  \code{behaviour}.  Factor problems level \code{bad} corresponds to
+  \dQuote{fair to bad} in Fitzmaurice's et al. source.
 
 }
 
