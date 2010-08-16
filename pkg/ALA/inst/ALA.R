@@ -1,7 +1,7 @@
 ### ALA.R --- Preparing data for ALA package
 ## Author: Sebastian P. Luque
 ## Created: Fri Aug 13 22:35:06 2010 (UTC)
-## Last-Updated: Mon Aug 16 17:51:26 2010 (UTC)
+## Last-Updated: Mon Aug 16 19:34:21 2010 (UTC)
 ##           By: Sebastian P. Luque
 ## copyright (c) 2010 Sebastian P. Luque
 ###
@@ -90,15 +90,17 @@ save(bpd, file="../data/bpd.rda")
 
 ###_ : ccs
 
-names(ccs) <- c("id", "problems", "parent.status", "parent.report",
-                "teacher.report")
+names(ccs) <- c("id", "problems", "parent.status", "parent", "teacher")
 ccs <- within(ccs, {
     id <- factor(id)
     problems <- factor(problems, labels=c("good", "bad"))
     parent.status <- factor(parent.status, labels=c("otherwise", "single"))
-    parent.report <- factor(parent.report, labels=c("no", "yes"))
-    teacher.report <- factor(teacher.report, labels=c("no", "yes"))
+    parent <- factor(parent, labels=c("no", "yes"))
+    teacher <- factor(teacher, labels=c("no", "yes"))
 })
+ccs.m <- melt(ccs, measure.vars=4:5, variable_name="respondent")
+ccs <- ccs.m
+names(ccs)[5] <- "behaviour"
 
 str(ccs)
 summary(ccs)
@@ -187,24 +189,27 @@ names(dental) <- c("id", "gender", "8", "10", "12", "14")
 
 ## Number variables are period containing the ECG response
 names(ecg) <- c("sequence", "1", "2", "n")
-## I'm not sure how this should be expanded, if at all
+ecg <- ecg[rep(seq(nrow(ecg)), ecg$n), 1:3]
 ecg <- within(ecg, {
+    id <- seq(nrow(ecg))
     sequence <- factor(sequence, labels=c("P->A", "A->P"))
 })
 ecg.m <- melt(ecg, measure.vars=2:3, variable_name="period")
-ecg <- with(ecg.m, data.frame(sequence, period, n, value))
+ecg <- with(ecg.m, data.frame(id, sequence, period, value))
 ## ecg <- within(ecg, {period <- as.numeric(as.character(period))})
-ecg <- with(ecg, ecg[order(sequence, period), ])
+ecg <- with(ecg, ecg[order(id, period, sequence), ])
 names(ecg)[4] <- "ecg"
 ecg <- within(ecg, {
+    id <- factor(id)
     ecg <- factor(ecg, labels=c("normal", "abnormal"))
 })
 ecg
 
 str(ecg)
 summary(ecg)
-nrow(unique(subset(ecg, select=c(sequence))))
-nrow(unique(subset(ecg, select=c(sequence, period))))
+nrow(unique(subset(ecg, select=c(id))))
+nrow(unique(subset(ecg, select=c(id, sequence))))
+nrow(unique(subset(ecg, select=c(id, sequence, period))))
 
 promptData(ecg, "../man/ecg.Rd")
 save(ecg, file="../data/ecg.rda")
