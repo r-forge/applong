@@ -60,6 +60,14 @@
 }
 
 
+\section{Warning}{
+
+  The original description says there are 111 patients, yet the data
+  contain only 56 IDs.
+
+}
+
+
 \source{
 
   \url{http://biosun1.harvard.edu/~fitzmaur/ala}
