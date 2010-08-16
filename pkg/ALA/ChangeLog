@@ -1,3 +1,37 @@
+2010-08-16  Sebastian P. Luque <spluque@gmail.com>
+
+	* inst/ALA.R:
+	  Updated work-flow.
+
+	* data/tumor.rda:
+	  Actually changed binary response to factor.
+
+	* data/ccs.rda, data/ecg.rda, man/ccs.Rd, man/ecg.Rd:
+	  Properly expanded (see inst/ALA.R).
+
+	* man/amenorrhea.Rd, man/bpd.Rd, man/ccs.Rd, man/cd4.Rd,
+	  man/chd.Rd, man/cholesterol.Rd, man/ecg.Rd, man/epilepsy.Rd,
+	  man/exercise.Rd, man/fat.Rd, man/fev1.Rd, man/headache.Rd,
+	  man/lead.Rd, man/leprosy.Rd, man/muscatine.Rd, man/ntp.Rd,
+	  man/rat.Rd, man/respir.Rd, man/skin.Rd, man/smoking.Rd,
+	  man/tlc.Rd, man/toenail.Rd, man/tumor.Rd, man/tvsfp.Rd:
+	  Removed data() calls and added summary().
+
+	* inst, inst/ALA.R, inst/read_data.awk, inst/write_data.sh:
+	  Adding package development scripts.
+
+	* data/amenorrhea.rda, data/bpd.rda, data/ccs.rda, data/ecg.rda,
+	  data/muscatine.rda, data/ntp.rda, data/respir.rda,
+	  man/amenorrhea.Rd, man/bpd.Rd, man/ccs.Rd, man/ecg.Rd,
+	  man/muscatine.Rd, man/ntp.Rd, man/respir.Rd, man/tumor.Rd:
+	  Turned binary responses into factors with appropriate levels.
+
+	* man/respir.Rd:
+	  Warning about discrepancy in IDs.
+
+	* DESCRIPTION:
+	  LazyData the package.
+
 2010-08-15  Sebastian P. Luque <spluque@gmail.com>
 
 	* man/bpd.Rd, man/ecg.Rd, man/rat.Rd:
