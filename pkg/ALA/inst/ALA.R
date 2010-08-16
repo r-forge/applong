@@ -1,7 +1,7 @@
 ### ALA.R --- Preparing data for ALA package
 ## Author: Sebastian P. Luque
 ## Created: Fri Aug 13 22:35:06 2010 (UTC)
-## Last-Updated: Mon Aug 16 19:34:21 2010 (UTC)
+## Last-Updated: Mon Aug 16 20:26:50 2010 (UTC)
 ##           By: Sebastian P. Luque
 ## copyright (c) 2010 Sebastian P. Luque
 ###
@@ -156,7 +156,7 @@ save(chd, file="../data/chd.rda")
 ## Number variables are "month"
 names(cholesterol) <- c("treatment", "id", "0", "6", "12", "20", "24")
 cholesterol <- within(cholesterol, {
-    treatment <- factor(treatment, labels=c("high chenodiol", "placebo"))
+    treatment <- factor(treatment, labels=c("chenodiol", "placebo"))
     id <- factor(id)
 })
 cholesterol.m <- melt(cholesterol, measure.vars=3:7,
