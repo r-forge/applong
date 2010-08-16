@@ -28,8 +28,8 @@
     \item{\code{id}}{a factor 94 with levels}
     \item{\code{dose}}{a numeric vector}
     \item{\code{weight}}{a numeric vector}
-    \item{\code{malformed}}{a numeric vector; whether evidence of
-      malformations was found}
+    \item{\code{malformed}}{a factor with levels \code{no} and
+      \code{yes} (evidence of malformations)}
     
   }
   

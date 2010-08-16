@@ -12,7 +12,7 @@
   The data are from two surveys of children's mental health. A
   standardized measure of childhood psychopathology was used both by
   parents (Child Behavior Checklist, CBC) and teachers (Teacher Report
-  Forms, TRF) to assess children in the study
+  Forms, TRF) to assess children in the study.
 
 }
 
@@ -30,8 +30,10 @@
     \item{\code{problems}}{a factor with levels \code{good} and \code{bad}}
     \item{\code{parent.status}}{a factor with levels \code{otherwise}
       and \code{single}}
-    \item{\code{parent.report}}{a numeric vector}
-    \item{\code{teacher.report}}{a numeric vector}
+    \item{\code{parent.report}}{a factor with levels \code{no} and
+      \code{yes}}
+    \item{\code{teacher.report}}{a factor with levels \code{no} and
+      \code{yes}}
     
   }
 

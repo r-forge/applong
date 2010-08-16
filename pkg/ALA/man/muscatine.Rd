@@ -22,13 +22,17 @@
   A data frame with 14568 observations on the following 6 variables.
   
   \describe{
+    
     \item{\code{id}}{a factor with 4856 levels}
     \item{\code{gender}}{a factor with levels \code{M} and \code{F}}
     \item{\code{age0}}{a numeric vector; initial age}
     \item{\code{age}}{a numeric vector}
     \item{\code{year}}{a numeric vector}
-    \item{\code{obesity}}{a numeric vector; (0: non-obese; 1:obese)}
+    \item{\code{obesity}}{a factor with levels \code{non-obese} and
+      \code{obese}}
+    
   }
+  
 }
 
 

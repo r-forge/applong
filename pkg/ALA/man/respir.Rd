@@ -33,8 +33,8 @@
       \code{placebo}}
     \item{\code{age}}{a numeric vector}
     \item{\code{visit}}{a numeric vector}
-    \item{\code{status}}{a numeric vector (0: poor response; 1: good
-      response)}
+    \item{\code{status}}{a factor with levels \code{poor} and
+      \code{good} (response)}
     
   }
   

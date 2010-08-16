@@ -30,7 +30,8 @@
     \item{\code{bpd}}{a numeric vector}
     \item{\code{birth.weight}}{a numeric vector}
     \item{\code{gestational.age}}{a numeric vector}
-    \item{\code{toxemia}}{a numeric vector}
+    \item{\code{toxemia}}{a factor with levels \code{no} and
+      \code{yes}}
 
   }
 

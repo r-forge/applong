@@ -28,8 +28,8 @@
     \item{\code{id}}{a factor with 75 levels}
     \item{\code{treatment}}{a factor with levels \code{placebo} and
       \code{thiotepa}}
-    \item{\code{recurrence}}{a numeric vector (0: no new tumors; 1: new
-      tumors)}
+    \item{\code{recurrence}}{a factor with levels \code{no} and
+      \code{yes} (new tumors)}
     
   }
   

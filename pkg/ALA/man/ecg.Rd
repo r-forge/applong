@@ -30,8 +30,8 @@
       active to placebo, respectively}
     \item{\code{period}}{a factor with levels \code{1} and \code{2}}
     \item{\code{n}}{a numeric vector}
-    \item{\code{ecg}}{a numeric vector; ECG response (1=abnormal,
-      0=normal)}
+    \item{\code{ecg}}{a factor (ECG response) with levels
+      \code{normal} and \code{abnormal}}
     
   }
   
