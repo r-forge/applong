@@ -78,8 +78,8 @@
 
 \examples{
 
-data(ecg)
 str(ecg)
+summary(ecg)
 
 }
 

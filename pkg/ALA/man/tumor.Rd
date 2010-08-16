@@ -76,8 +76,8 @@
 
 \examples{
 
-data(tumor)
 str(tumor)
+summary(tumor)
 
 }
 

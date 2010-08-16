@@ -75,8 +75,8 @@
 
 \examples{
 
-data(tlc)
 str(tlc)
+summary(tlc)
 
 }
 

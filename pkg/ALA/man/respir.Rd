@@ -86,8 +86,8 @@
 
 \examples{
 
-data(respir)
 str(respir)
+summary(respir)
 
 }
 

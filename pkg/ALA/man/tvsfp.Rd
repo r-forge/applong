@@ -91,8 +91,8 @@
 
 \examples{
 
-data(tvsfp)
 str(tvsfp)
+summary(tvsfp)
 
 }
 

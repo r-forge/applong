@@ -81,8 +81,8 @@
 
 \examples{
 
-data(fat)
 str(fat)
+summary(fat)
 
 }
 

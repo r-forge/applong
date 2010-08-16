@@ -80,8 +80,8 @@
 
 \examples{
 
-data(muscatine)
 str(muscatine)
+summary(muscatine)
 
 }
 

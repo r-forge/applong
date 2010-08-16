@@ -80,8 +80,8 @@
 
 \examples{
 
-data(epilepsy)
 str(epilepsy)
+summary(epilepsy)
 
 }
 

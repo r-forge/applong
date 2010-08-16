@@ -71,8 +71,8 @@
 
 \examples{
 
-data(chd)
 str(chd)
+summary(chd)
 
 }
 

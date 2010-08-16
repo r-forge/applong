@@ -88,8 +88,8 @@
 
 \examples{
 
-data(fev1)
 str(fev1)
+summary(fev1)
 
 }
 

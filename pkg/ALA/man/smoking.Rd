@@ -90,8 +90,8 @@
 
 \examples{
 
-data(smoking)
 str(smoking)
+summary(smoking)
 
 }
 

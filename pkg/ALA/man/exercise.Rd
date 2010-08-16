@@ -75,8 +75,8 @@
 
 \examples{
 
-data(exercise)
 str(exercise)
+summary(exercise)
 
 }
 

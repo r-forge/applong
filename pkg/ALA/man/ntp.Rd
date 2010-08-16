@@ -73,8 +73,8 @@
 
 \examples{
 
-data(ntp)
 str(ntp)
+summary(ntp)
 
 }
 

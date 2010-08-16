@@ -84,8 +84,8 @@
 
 \examples{
 
-data(toenail)
 str(toenail)
+summary(toenail)
 
 }
 

@@ -80,8 +80,8 @@
 
 \examples{
 
-data(leprosy)
 str(leprosy)
+summary(leprosy)
 
 }
 

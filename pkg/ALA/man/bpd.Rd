@@ -78,8 +78,8 @@
 
 \examples{
 
-data(bpd)
 str(bpd)
+summary(bpd)
 
 }
 

@@ -90,9 +90,8 @@
 
 \examples{
 
-data(amenorrhea)
 str(amenorrhea)
-
+summary(amenorrhea)
 
 }
 

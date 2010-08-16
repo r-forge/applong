@@ -81,8 +81,8 @@
 
 \examples{
 
-data(cholesterol)
 str(cholesterol)
+summary(cholesterol)
 
 }
 

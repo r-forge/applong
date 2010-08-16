@@ -93,8 +93,8 @@
 
 \examples{
 
-data(cd4)
 str(cd4)
+summary(cd4)
 
 }
 

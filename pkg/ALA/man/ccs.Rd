@@ -88,8 +88,8 @@
 
 \examples{
 
-data(ccs)
 str(ccs)
+summary(ccs)
 
 }
 

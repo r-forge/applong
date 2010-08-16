@@ -88,8 +88,8 @@
 
 \examples{
 
-data(headache)
 str(headache)
+summary(headache)
 
 }
 

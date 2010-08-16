@@ -77,8 +77,8 @@
 
 \examples{
 
-data(rat)
 str(rat)
+summary(rat)
 
 }
 

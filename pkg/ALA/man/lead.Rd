@@ -70,8 +70,8 @@
 
 \examples{
 
-data(lead)
 str(lead)
+summary(lead)
 
 }
 

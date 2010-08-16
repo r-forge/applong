@@ -95,8 +95,8 @@
 
 \examples{
 
-data(skin)
 str(skin)
+summary(skin)
 
 }
 
