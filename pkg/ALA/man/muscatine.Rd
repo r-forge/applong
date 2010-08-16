@@ -4,7 +4,7 @@
 
 % -------------------------------------------------------------------------
 
-\title{Obesity from the Muscatine Coronary Risk Factor Study}
+\title{Obesity from the Muscatine coronary risk factor study}
 
 
 \description{

@@ -4,7 +4,7 @@
 
 % -------------------------------------------------------------------------
 
-\title{Subset of Data from Exercise Therapy Study}
+\title{Subset of data from exercise therapy study}
 
 
 \description{

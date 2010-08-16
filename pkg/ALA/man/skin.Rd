@@ -4,7 +4,7 @@
 
 % -------------------------------------------------------------------------
 
-\title{The Skin Cancer Prevention Study}
+\title{The skin cancer prevention study}
 
 
 \description{

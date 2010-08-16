@@ -4,8 +4,8 @@
 
 % -------------------------------------------------------------------------
 
-\title{Subsample (N=100) of data on Blood Lead Levels from the Treatment
-  of Lead Exposed Children (TLC) Trial}
+\title{Subsample (N=100) of data on blood lead levels from the Treatment
+  of Lead Exposed Children (TLC) trial}
 
 
 \description{

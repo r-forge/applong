@@ -5,7 +5,7 @@
 % -------------------------------------------------------------------------
 
 \title{Subsample (N=133) of data on FEV1 from the Vlagtwedde-Vlaardingen
-  Study}
+  study}
 
 
 \description{

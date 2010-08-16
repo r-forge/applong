@@ -4,7 +4,7 @@
 
 % -------------------------------------------------------------------------
 
-\title{Connecticut Child Surveys}
+\title{Connecticut child surveys}
 
 
 \description{

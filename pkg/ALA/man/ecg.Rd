@@ -4,8 +4,7 @@
 
 % -------------------------------------------------------------------------
 
-\title{Data from a two-period crossover trial on cerebrovascular
-  deficiency}
+\title{Two-period crossover trial study on cerebrovascular deficiency}
 
 
 \description{

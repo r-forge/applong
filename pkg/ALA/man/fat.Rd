@@ -4,7 +4,7 @@
 
 % -------------------------------------------------------------------------
 
-\title{Study of Influence of Menarche on Changes in Body Fat Accretion}
+\title{Study of influence of menarche on changes in body fat accretion}
 
 
 \description{
