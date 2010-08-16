@@ -25,11 +25,11 @@
   
   \describe{
     
+    \item{\code{id}}{a factor with 67 levels}
     \item{\code{sequence}}{a factor with levels \code{P->A} and
       \code{A->P}, indicating treatment sequence (placebo to active and
       active to placebo, respectively}
     \item{\code{period}}{a factor with levels \code{1} and \code{2}}
-    \item{\code{n}}{a numeric vector}
     \item{\code{ecg}}{a factor (ECG response) with levels
       \code{normal} and \code{abnormal}}
     
@@ -56,6 +56,7 @@
 
   Original variable names have been adapted to R conventions.  Data were
   reshaped from wide to long format and the response named \code{ecg}.
+  Variable ID was added to identify individuals.
 
 }
 
