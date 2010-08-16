@@ -10,7 +10,7 @@
 \description{
 
   The data are from a study of exercise therapies, where 37 patients
-  were assigned to one of two weightlifting programs
+  were assigned to one of two weightlifting programs.
 
 }
 

@@ -12,7 +12,7 @@
 
   The data are from the National Cooperative Gallstone Study (NCGS),
   where one of the major interests was to study the safety of the drug
-  chenodiol for the treatment of cholesterol gallstones
+  chenodiol for the treatment of cholesterol gallstones.
 
 }
 
