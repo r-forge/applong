@@ -1,5 +1,15 @@
 2010-08-17  Sebastian P. Luque <spluque@gmail.com>
 
+	* inst/ALA.R, man/fev1.Rd:
+	  "%" needs escaping in *.Rd files.
+
+	* DESCRIPTION, inst/ALA.R, man/fev1.Rd:
+	  Revert to suggesting lme4 and condition examples on any required
+	  packages.
+
+	* inst/ALA.R, man/fev1.Rd:
+	  Updated example.
+
 	* DESCRIPTION, inst/ALA.R, man/fev1.Rd:
 	  Package depends on lme4 now. Added first example.
 
