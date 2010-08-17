@@ -1,3 +1,8 @@
+2010-08-17  Sebastian P. Luque <spluque@gmail.com>
+
+	* DESCRIPTION, inst/ALA.R, man/fev1.Rd:
+	  Package depends on lme4 now. Added first example.
+
 2010-08-16  Sebastian P. Luque <spluque@gmail.com>
 
 	* data/cholesterol.rda, inst/ALA.R, man/cholesterol.Rd:
