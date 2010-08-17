@@ -105,6 +105,9 @@ xyplot(log(fev1.e/height) ~ age, data=fev1, groups=id, type="b",
 ## Model in p. 213
 (fm1 <- lmer(logFEV1 ~ age + log(height) + age0 + log(height0) + (age | id),
              data=fev1, subset=logFEV1 > -0.5))
+## Table 8.3
+VarCorr(fm1)$id * 100
+
 
 }
 
