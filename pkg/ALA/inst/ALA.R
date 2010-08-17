@@ -1,7 +1,7 @@
 ### ALA.R --- Preparing data for ALA package
 ## Author: Sebastian P. Luque
 ## Created: Fri Aug 13 22:35:06 2010 (UTC)
-## Last-Updated: Tue Aug 17 15:19:36 2010 (UTC)
+## Last-Updated: Tue Aug 17 16:52:34 2010 (UTC)
 ##           By: Sebastian P. Luque
 ## copyright (c) 2010 Sebastian P. Luque
 ###
@@ -636,20 +636,26 @@ library(ALA)
 fev1.e <- exp(fev1$logFEV1)
 set.seed(1234); ids <- sample(levels(fev1$id), 50)
 
-bwplot(~ logFEV1, data=fev1)        # reveals the outlier mentioned in text
-subset(fev1, logFEV1 < -0.5)
+if (require(lattice)) {
+    bwplot(~ logFEV1, data=fev1)        # reveals the outlier mentioned in text
+    subset(fev1, logFEV1 < -0.5)
+    ## Fig. 8.4 (roughly)
+    xyplot(log(fev1.e/height) ~ age, data=fev1, groups=id, type="b",
+           subset=id %in% ids, cex=0.5, col=1,
+           xlab="Age (years)", ylab="Log(FEV1/Height)",
+           ylim=c(-0.3, 1.2))
+}
 
-## Fig. 8.4 (roughly)
-xyplot(log(fev1.e/height) ~ age, data=fev1, groups=id, type="b",
-       subset=id %in% ids, cex=0.5, col=1,
-       xlab="Age (years)", ylab="Log(FEV1/Height)",
-       ylim=c(-0.3, 1.2))
+if (require(lme4)) {
+    ## Model in p. 213
+    (fm1 <- lmer(logFEV1 ~ age + log(height) + age0 + log(height0) + (age | id),
+                 data=fev1, subset=logFEV1 > -0.5))
+    ## Table 8.3
+    VarCorr(fm1)$id * 100
 
-## Model in p. 213
-(fm1 <- lmer(logFEV1 ~ age + log(height) + age0 + log(height0) + (age | id),
-             data=fev1, subset=logFEV1 > -0.5))
-## Table 8.3
-VarCorr(fm1)$id * 100
+    ## Model in p. 216
+    (fm2 <- update(fm1, . ~ . - (age | id) + (log(height) | id)))
+}
 
 
 ###_ + Emacs local variables

@@ -2,7 +2,7 @@ Package: ALA
 Type: Package
 Title: Data sets and examples for the book "Applied Longitudinal Analysis"
 Version: 1.0
-Depends: lme4
+Suggests: lme4
 Author: Sebastian P. Luque and Douglas Bates
 Maintainer: Sebastian Luque <spluque@gmail.com>
 Description: Data sets used in Fitzmaurice et al.'s book and models fit
