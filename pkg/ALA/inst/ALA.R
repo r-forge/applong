@@ -1,7 +1,7 @@
 ### ALA.R --- Preparing data for ALA package
 ## Author: Sebastian P. Luque
 ## Created: Fri Aug 13 22:35:06 2010 (UTC)
-## Last-Updated: Tue Aug 17 16:52:34 2010 (UTC)
+## Last-Updated: Tue Aug 17 20:42:12 2010 (UTC)
 ##           By: Sebastian P. Luque
 ## copyright (c) 2010 Sebastian P. Luque
 ###
@@ -633,10 +633,9 @@ library(ALA)
 
 ###_  . Chapter 8
 
-fev1.e <- exp(fev1$logFEV1)
-set.seed(1234); ids <- sample(levels(fev1$id), 50)
-
 if (require(lattice)) {
+    fev1.e <- exp(fev1$logFEV1)
+    set.seed(1234); ids <- sample(levels(fev1$id), 50)
     bwplot(~ logFEV1, data=fev1)        # reveals the outlier mentioned in text
     subset(fev1, logFEV1 < -0.5)
     ## Fig. 8.4 (roughly)

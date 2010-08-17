@@ -92,11 +92,13 @@ str(fev1)
 summary(fev1)
 
 if (require(lattice)) {
+    fev1.e <- exp(fev1$logFEV1)
+    set.seed(1234); ids <- sample(levels(fev1$id), 50)
     bwplot(~ logFEV1, data=fev1)        # reveals the outlier mentioned in text
     subset(fev1, logFEV1 < -0.5)
     ## Fig. 8.4 (roughly)
     xyplot(log(fev1.e/height) ~ age, data=fev1, groups=id, type="b",
-           subset=id %in% ids, cex=0.5, col=1,
+           subset=id \%in\% ids, cex=0.5, col=1,
            xlab="Age (years)", ylab="Log(FEV1/Height)",
            ylim=c(-0.3, 1.2))
 }
