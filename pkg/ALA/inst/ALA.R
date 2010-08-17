@@ -1,7 +1,7 @@
 ### ALA.R --- Preparing data for ALA package
 ## Author: Sebastian P. Luque
 ## Created: Fri Aug 13 22:35:06 2010 (UTC)
-## Last-Updated: Mon Aug 16 20:26:50 2010 (UTC)
+## Last-Updated: Tue Aug 17 14:10:04 2010 (UTC)
 ##           By: Sebastian P. Luque
 ## copyright (c) 2010 Sebastian P. Luque
 ###
@@ -28,7 +28,6 @@
 
 library(reshape)
 
-
 ###_ + Download and extract the data
 
 baseURL <- "http://biosun1.harvard.edu/~fitzmaur/ala/"
@@ -54,7 +53,9 @@ for (f in fnms) {
 print(ls.str())
 
 
-###_ : amenorrhea
+###_ + Prepare data sets
+
+###_  : amenorrhea
 
 names(amenorrhea) <- c("id", "dose", "day", "amenorrhea")
 amenorrhea <- within(amenorrhea, {
@@ -72,7 +73,7 @@ promptData(amenorrhea, "../man/amenorrhea.Rd")
 save(amenorrhea, file="../data/amenorrhea.rda")
 
 
-###_ : bpd
+###_  : bpd
 
 names(bpd) <- c("bpd", "birth.weight", "gestational.age", "toxemia")
 bpd <- data.frame(id=factor(seq(nrow(bpd))), bpd)
@@ -88,7 +89,7 @@ promptData(bpd, "../man/bpd.Rd")
 save(bpd, file="../data/bpd.rda")
 
 
-###_ : ccs
+###_  : ccs
 
 names(ccs) <- c("id", "problems", "parent.status", "parent", "teacher")
 ccs <- within(ccs, {
@@ -111,7 +112,7 @@ promptData(ccs, "../man/ccs.Rd")
 save(ccs, file="../data/ccs.rda")
 
 
-###_ : cd4
+###_  : cd4
 
 names(cd4) <- c("id", "treatment", "age", "gender", "week", "logCD4")
 cd4 <- within(cd4, {
@@ -130,7 +131,7 @@ promptData(cd4, "../man/cd4.Rd")
 save(cd4, file="../data/cd4.rda")
 
 
-###_ : chd
+###_  : chd
 
 ## Not sure what "person years follow-up" is
 names(chd) <- c("smoking", "blood.pressure", "behaviour", "nCHD",
@@ -151,7 +152,7 @@ promptData(chd, "../man/chd.Rd")
 save(chd, file="../data/chd.rda")
 
 
-###_ : cholesterol
+###_  : cholesterol
 
 ## Number variables are "month"
 names(cholesterol) <- c("treatment", "id", "0", "6", "12", "20", "24")
@@ -178,14 +179,14 @@ promptData(cholesterol, "../man/cholesterol.Rd")
 save(cholesterol, file="../data/cholesterol.rda")
 
 
-###_ : dental -- SAME AS Orthodont in nlme
+###_  : dental -- SAME AS Orthodont in nlme
 
 ## Skip this and make a note in man/ALA-package.Rd
 ## Variable numbers are age
 names(dental) <- c("id", "gender", "8", "10", "12", "14")
 
 
-###_ : ecg
+###_  : ecg
 
 ## Number variables are period containing the ECG response
 names(ecg) <- c("sequence", "1", "2", "n")
@@ -215,7 +216,7 @@ promptData(ecg, "../man/ecg.Rd")
 save(ecg, file="../data/ecg.rda")
 
 
-###_ : epilepsy
+###_  : epilepsy
 
 ## Number variables are times (at 2-week intervals)
 names(epilepsy) <- c("id", "treatment", "age", "0", "2", "4", "6", "8")
@@ -240,7 +241,7 @@ promptData(epilepsy, "../man/epilepsy.Rd")
 save(epilepsy, file="../data/epilepsy.rda")
 
 
-###_ : exercise
+###_  : exercise
 
 ## Number variables represent days
 names(exercise) <- c("id", "treatment", "0", "2", "4", "6",
@@ -265,7 +266,7 @@ promptData(exercise, "../man/exercise.Rd")
 save(exercise, file="../data/exercise.rda")
 
 
-###_ : fat
+###_  : fat
 
 names(fat) <- c("id", "age", "age.menarche", "time.menarche", "percent.fat")
 fat <- within(fat, {
@@ -281,7 +282,7 @@ promptData(fat, "../man/fat.Rd")
 save(fat, file="../data/fat.rda")
 
 
-###_ : fev1
+###_  : fev1
 
 names(fev1) <- c("id", "height", "age", "height0", "age0", "logFEV1")
 fev1 <- within(fev1, {
@@ -303,7 +304,7 @@ promptData(fev1, "../man/fev1.Rd")
 save(fev1, file="../data/fev1.rda")
 
 
-###_ : headache
+###_  : headache
 
 ## The 3rd column should be removed, since it's a duplicate of the 6th
 headache <- subset(headache, select=c(1, 2, 4:7))
@@ -328,7 +329,7 @@ promptData(headache, "../man/headache.Rd")
 save(headache, file="../data/headache.rda")
 
 
-###_ : lead
+###_  : lead
 
 ## Number variables represent weeks
 names(lead) <- c("id", "0", "1", "4", "6")
@@ -350,7 +351,7 @@ promptData(lead, "../man/lead.Rd")
 save(lead, file="../data/lead.rda")
 
 
-###_ : leprosy
+###_  : leprosy
 
 names(leprosy) <- c("drug", "pre", "post")
 ## We need to add subject ID
@@ -373,14 +374,14 @@ promptData(leprosy, "../man/leprosy.Rd")
 save(leprosy, file="../data/leprosy.rda")
 
 
-###_ : melanoma -- SAME as Mmmec in mlmRev
+###_  : melanoma -- SAME as Mmmec in mlmRev
 
 ## We skip this and add a note in man/ALA-package.Rd
 names(melanoma) <- c("region", "county", "observed.deaths", "expected.deaths",
                      "exposure")
 
 
-###_ : muscatine
+###_  : muscatine
 
 names(muscatine) <- c("id", "gender", "age0", "age", "year", "obesity")
 muscatine <- within(muscatine, {
@@ -403,7 +404,7 @@ promptData(muscatine, "../man/muscatine.Rd")
 save(muscatine, file="../data/muscatine.rda")
 
 
-###_ : ntp
+###_  : ntp
 
 names(ntp) <- c("id", "dose", "weight", "malformed")
 ## Not sure whether dose should be a factor
@@ -419,14 +420,14 @@ promptData(ntp, "../man/ntp.Rd")
 save(ntp, file="../data/ntp.rda")
 
 
-###_ : obesity -- Subset of muscatine, so not worth including in ALA
+###_  : obesity -- Subset of muscatine, so not worth including in ALA
 
 ## First 3 number variables represent years, and the rest cohorts
 names(obesity) <- c("gender", "1977", "1979", "1981",
                     "1", "2", "3", "4", "5")
 
 
-###_ : rat
+###_  : rat
 
 ## Number variables represent weeks and contain the weight
 names(rat) <- c("id", "treatment", "0", "1", "2", "3", "4")
@@ -452,7 +453,7 @@ promptData(rat, "../man/rat.Rd")
 save(rat, file="../data/rat.rda")
 
 
-###_ : respir
+###_  : respir
 
 ## Number variables represent visit containing respiratory status
 names(respir) <- c("center", "id", "treatment", "gender", "age", "0",
@@ -488,7 +489,7 @@ promptData(respir, "../man/respir.Rd")
 save(respir, file="../data/respir.rda")
 
 
-###_ : skin
+###_  : skin
 
 names(skin) <- c("id", "center", "age", "skin", "gender", "nExposure",
                  "nCancers", "treatment", "year")
@@ -511,7 +512,7 @@ promptData(skin, "../man/skin.Rd")
 save(skin, file="../data/skin.rda")
 
 
-###_ : smoking
+###_  : smoking
 
 names(smoking) <- c("id", "smoker", "year", "FEV1")
 smoking <- within(smoking, {
@@ -528,7 +529,7 @@ promptData(smoking, "../man/smoking.Rd")
 save(smoking, file="../data/smoking.rda")
 
 
-###_ : tlc
+###_  : tlc
 
 ## Number variables represent week containing lead level
 names(tlc) <- c("id", "treatment", "0", "1", "4", "6")
@@ -553,7 +554,7 @@ promptData(tlc, "../man/tlc.Rd")
 save(tlc, file="../data/tlc.rda")
 
 
-###_ : toenail
+###_  : toenail
 
 names(toenail) <- c("id", "onycholysis", "treatment", "month", "week")
 ## We need to have a look
@@ -573,7 +574,7 @@ promptData(toenail, "../man/toenail.Rd")
 save(toenail, file="../data/toenail.rda")
 
 
-###_ : tumor
+###_  : tumor
 
 names(tumor) <- c("id", "treatment", "recurrence")
 tumor <- within(tumor, {
@@ -591,7 +592,7 @@ promptData(tumor, "../man/tumor.Rd")
 save(tumor, file="../data/tumor.rda")
 
 
-###_ : tvsfp
+###_  : tvsfp
 
 ## The pre and post variables indicate score period, containing the THKS score
 names(tvsfp) <- c("school", "class", "school.based", "tv.based",
@@ -626,10 +627,34 @@ promptData(tvsfp, "../man/tvsfp.Rd")
 save(tvsfp, file="../data/tvsfp.rda")
 
 
+###_ + Prepare examples
+
+library(ALA)
+library(lme4)
+
+###_  . Chapter 8
+
+fev1.e <- exp(fev1$logFEV1)
+set.seed(1234); ids <- sample(levels(fev1$id), 50)
+
+bwplot(~ logFEV1, data=fev1)        # reveals the outlier mentioned in text
+subset(fev1, logFEV1 < -0.5)
+
+## Fig. 8.4 (roughly)
+xyplot(log(fev1.e/height) ~ age, data=fev1, groups=id, type="b",
+       subset=id %in% ids, cex=0.5, col=1,
+       xlab="Age (years)", ylab="Log(FEV1/Height)",
+       ylim=c(-0.3, 1.2))
+
+## Model in p. 213
+(fm1 <- lmer(logFEV1 ~ age + log(height) + age0 + log(height0) + (age | id),
+             data=fev1, subset=logFEV1 > -0.5))
+
+
 
 ###_ + Emacs local variables
 ## Local variables:
-## allout-layout: (+ : 0)
+## allout-layout: (0 : + 0)
 ## End:
 ## 
 ### ALA.R ends here
