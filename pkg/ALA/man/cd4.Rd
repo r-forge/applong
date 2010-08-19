@@ -109,6 +109,23 @@ if (require(lattice)) {
            xlab="Time (weeks)", ylab="Log(CD4 + 1)")
 }
 
+if (require(lme4)) {
+    str(cd4New)
+    cd4New <- within(cd4New, {
+        stage <- ifelse(week > 16, week - 16, 0)
+    })
+    summary(cd4New)
+    ## Model in p. 227
+    (fm1 <- lmer(logCD4 ~ week + stage + treatment:week + treatment:stage +
+                 (week + stage | id), data=cd4New))
+    ## Table 8.13
+    VarCorr(fm1)[[1]] * 1000
+    ## Model in p. 229
+    (fm2 <- lmer(logCD4 ~ week + stage + treatment:(week - stage) +
+                 age + gender + (week + stage | id), data=cd4New))
+}
+
+
 }
 
 

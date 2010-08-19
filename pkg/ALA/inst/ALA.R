@@ -1,7 +1,7 @@
 ### ALA.R --- Preparing data for ALA package
 ## Author: Sebastian P. Luque
 ## Created: Fri Aug 13 22:35:06 2010 (UTC)
-## Last-Updated: Thu Aug 19 16:35:26 2010 (UTC)
+## Last-Updated: Thu Aug 19 17:25:56 2010 (UTC)
 ##           By: Sebastian P. Luque
 ## copyright (c) 2010 Sebastian P. Luque
 ###
@@ -752,41 +752,40 @@ if (require(lattice)) {
 
 if (require(lme4)) {
     str(cd4New)
+    ## cd4New <- within(cd4New, {
+    ##     stage <- cut(week, breaks=c(floor(min(week)), 16,
+    ##                          ceiling(max(week))),
+    ##                  labels=c("pre", "post"), include.lowest=TRUE)
+    ## })
     cd4New <- within(cd4New, {
-        stage <- cut(week, breaks=c(floor(min(week)), 16,
-                             ceiling(max(week))),
-                     labels=c("pre", "post"), include.lowest=TRUE)
-    })
-    cd4New <- within(cd4New, {
-        stage <- ifelse(week > 16, week, 0)
+        stage <- ifelse(week > 16, week - 16, 0)
     })
     summary(cd4New)
-    stdcontr <- getOption("contrasts")
     ## Model in p. 227
     (fm1 <- lmer(logCD4 ~ week + stage + treatment:week + treatment:stage +
                  (week + stage | id), data=cd4New))
-    options(contrasts=c(unordered="contr.SAS", ordered="contr.poly"))
-    (fm1 <- lmer(percent.fat ~ time.menarche + stage + (1 + time.menarche + stage | id),
-                 data=fatNew))
-    options(contrasts=stdcontr)
-    ## Table 8.3
-    VarCorr(fm1)$id * 100
-    ## Reconstruct the "marginal" correlation matrix (Table 8.4)
-    fm1.fx <- fixef(fm1)                # vector of fixed effects
-    fm1.mm <- model.matrix(fm1)
-    fm1.mg <- fm1.mm %*% fm1.fx         # E(Y_{ij} | X_{ij}\beta)
-    ## with(fev1OK, cov(cbind(fm1.mg[age==0], fm1.mg[age==1],
-    ##                        fm1.mg[age==2], fm1.mg[age==3])))
+    ## Table 8.13
+    VarCorr(fm1)[[1]] * 1000
+    ## Model in p. 229
+    (fm2 <- lmer(logCD4 ~ week + stage + treatment:(week - stage) +
+                 age + gender + (week + stage | id), data=cd4New))
 
-    ## Model in p. 216
-    (fm2 <- update(fm1, . ~ . - (age | id) + (log(height) | id)))
-
-    ## Refit to make comparisons and see that we reach the same conclusion
-    ## as that reached by simply comparing the log likelihood of the REML
-    ## estimates, as done in the book
-    fm1ML <- update(fm1, REML=FALSE)
-    fm2ML <- update(fm2, REML=FALSE)
-    anova(fm1ML, fm2ML)
+    ## Fig. 8.7 (roughly)
+    set.seed(1234); rndID <- sample(levels(cd4New$id), 2)
+    wk <- with(cd4New, seq(floor(min(week)), ceiling(max(week))))
+    st <- ifelse(wk > 16, wk - 16, 0)
+    avg.modmat <- cbind(1, wk, st, 45, 1, 1)
+    fitted.cd4 <- fitted(fm2)
+    pred.fixef <- avg.modmat %*% fixef(fm2)
+    plot(pred.fixef ~ avg.modmat[, 2], type="l", ylim=c(2, 6),
+         xlab="Time (weeks)",
+         ylab="Log(CD4 + 1)")
+    with(fatNew, {
+        points(time.menarche[id == rndID[1]], percent.fat[id == rndID[1]])
+        lines(time.menarche[id == rndID[1]], fitted.pf[id == rndID[1]])
+        points(time.menarche[id == rndID[2]], percent.fat[id == rndID[2]], pch=2)
+        lines(time.menarche[id == rndID[2]], fitted.pf[id == rndID[2]], lty=2)
+    })
 }
 
 
