@@ -1,3 +1,8 @@
+2010-08-19  Sebastian P. Luque <spluque@gmail.com>
+
+	* inst/ALA.R, man/cd4.Rd, man/fat.Rd:
+	  New examples.
+
 2010-08-17  Sebastian P. Luque <spluque@gmail.com>
 
 	* inst/ALA.R, man/fev1.Rd:
