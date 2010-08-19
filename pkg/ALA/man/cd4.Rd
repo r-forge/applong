@@ -96,6 +96,19 @@
 str(cd4)
 summary(cd4)
 
+if (require(lattice)) {
+    ## Create new data with just 2 levels of treatment
+    cd4New <- within(cd4, {
+        treatment <- factor(ifelse(treatment != levels(treatment)[4], 0, 1),
+                            labels=c("double", "triple"))
+    })
+    ## Fig. 8.9 (roughly)
+    xyplot(logCD4 ~ week, data=cd4New, groups=treatment, type="smooth",
+           aspect=1.5, cex=0.5, col=1, lty=c(2, 1),
+           scales=list(rot=c(0, 1), tck=c(0.5, 0)), ylim=c(2.5, 3.5),
+           xlab="Time (weeks)", ylab="Log(CD4 + 1)")
+}
+
 }
 
 

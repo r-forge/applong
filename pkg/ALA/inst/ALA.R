@@ -1,7 +1,7 @@
 ### ALA.R --- Preparing data for ALA package
 ## Author: Sebastian P. Luque
 ## Created: Fri Aug 13 22:35:06 2010 (UTC)
-## Last-Updated: Tue Aug 17 20:42:12 2010 (UTC)
+## Last-Updated: Thu Aug 19 16:35:26 2010 (UTC)
 ##           By: Sebastian P. Luque
 ## copyright (c) 2010 Sebastian P. Luque
 ###
@@ -20,9 +20,9 @@
 ##
 ## I used a short Shell script to extract and write the data from the
 ## source files (write_data.sh), which calls an awk script (read_data.awk),
-## since I got a warning that "^[[:space:]]*$" in Doug's script was not
-## correct for my current locale, so felt more confident using these
-## scripts.
+## since I got a warning to the effect that "^[[:space:]]*$" in Doug's
+## script was not correct for my current locale, so felt more confident
+## using these scripts.
 ### -----------------------------------------------------------------------
 ### Code:
 
@@ -645,16 +645,150 @@ if (require(lattice)) {
            ylim=c(-0.3, 1.2))
 }
 
+## First example
 if (require(lme4)) {
+    fev1OK <- subset(fev1, logFEV1 > -0.5)
     ## Model in p. 213
     (fm1 <- lmer(logFEV1 ~ age + log(height) + age0 + log(height0) + (age | id),
-                 data=fev1, subset=logFEV1 > -0.5))
+                 data=fev1OK))
     ## Table 8.3
     VarCorr(fm1)$id * 100
+    cov.ik <- function(obj, i, k) {
+        vc <- VarCorr(obj)[[1]]
+        g11 <- vc[1, 1]; g12 <- vc[1, 2]; g22 <- vc[2, 2]
+        ## ve <- as.numeric(slot(summary(obj), "REmat")[3, 3])
+        g11 + ((i + k) * g12) + (i * k * g22)
+    }
+    ages <- seq(7, 18)
+
+    ## Reconstruct the "marginal" correlation matrix (Table 8.4)
+    fm1.fx <- fixef(fm1)                # vector of fixed effects
+    fm1.mm <- model.matrix(fm1)
+    fm1.mg <- fm1.mm %*% fm1.fx         # E(Y_{ij} | X_{ij}\beta)
+    xtabs(~ id + round(age), fev1OK)
+    ## with(fev1OK, cov(cbind(fm1.mg[round(age)==7], fm1.mg[round(age)==8],
+    ##                        fm1.mg[round(age)==9], fm1.mg[round(age)==10])))
 
     ## Model in p. 216
     (fm2 <- update(fm1, . ~ . - (age | id) + (log(height) | id)))
+
+    ## Refit to make comparisons and see that we reach the same conclusion
+    ## as that reached by simply comparing the log likelihood of the REML
+    ## estimates, as done in the book
+    fm1ML <- update(fm1, REML=FALSE)
+    fm2ML <- update(fm2, REML=FALSE)
+    anova(fm1ML, fm2ML)
 }
+
+## Second example
+if (require(lattice)) {
+    ## Fig. 8.5 (roughly)
+    xyplot(percent.fat ~ time.menarche, data=fat, groups=id, type="b",
+           cex=0.5, col=1,
+           xlab="Time relative to menarche (weeks)",
+           ylab="Percent body fat")
+    ## Fig. 8.6 (roughly)
+    xyplot(percent.fat ~ time.menarche, data=fat,
+           cex=0.5, col=1,
+           xlab="Time relative to menarche (years)",
+           ylab="Percent body fat",
+           panel=function(x, y, ...) {
+               panel.abline(v=0, lty=2)
+               panel.xyplot(x, y, ...)
+               panel.loess(x, y, ...)
+           })
+}
+
+if (require(lme4)) {
+    ## ## Create the stage factor -- this is what I think should be done to
+    ## ## make the interpretations the authors are making
+    ## fatNew <- within(fat, {
+    ##     stage <- cut(time.menarche,
+    ##                  breaks=c(floor(min(time.menarche)), 0,
+    ##                    ceiling(max(time.menarche))),
+    ##                  labels=c("pre", "post"))
+    ## })
+    ## But this is what is actually done
+    fatNew <- within(fat, {
+        stage <- pmax(time.menarche, 0)
+    })
+    summary(fatNew)
+    ## Model in p. 218
+    (fm1 <- lmer(percent.fat ~ time.menarche + stage + (time.menarche + stage | id),
+                 data=fatNew))
+    ## Table 8.7
+    VarCorr(fm1)[[1]]
+    ## Fig. 8.7 (roughly)
+    set.seed(1234); rndID <- sample(levels(fatNew$id), 2)
+    tm <- with(fatNew, seq(floor(min(time.menarche)),
+                           ceiling(max(time.menarche))))
+    fitted.pf <- fitted(fm1)
+    avg.modmat <- cbind(1, tm, pmax(tm, 0))
+    pred.fixef <- avg.modmat %*% fixef(fm1)
+    plot(pred.fixef ~ avg.modmat[, 2], type="l", ylim=c(5, 35),
+         xlab="Time relative to menarche (years)",
+         ylab="Percent body fat")
+    with(fatNew, {
+        points(time.menarche[id == rndID[1]], percent.fat[id == rndID[1]])
+        lines(time.menarche[id == rndID[1]], fitted.pf[id == rndID[1]])
+        points(time.menarche[id == rndID[2]], percent.fat[id == rndID[2]], pch=2)
+        lines(time.menarche[id == rndID[2]], fitted.pf[id == rndID[2]], lty=2)
+    })
+}
+
+## Third example
+if (require(lattice)) {
+    ## Create new data with just 2 levels of treatment
+    cd4New <- within(cd4, {
+        treatment <- factor(ifelse(treatment != levels(treatment)[4], 0, 1),
+                            labels=c("double", "triple"))
+    })
+    ## Fig. 8.9 (roughly)
+    xyplot(logCD4 ~ week, data=cd4New, groups=treatment, type="smooth",
+           aspect=1.5, cex=0.5, col=1, lty=c(2, 1),
+           scales=list(rot=c(0, 1), tck=c(0.5, 0)), ylim=c(2.5, 3.5),
+           xlab="Time (weeks)", ylab="Log(CD4 + 1)")
+}
+
+if (require(lme4)) {
+    str(cd4New)
+    cd4New <- within(cd4New, {
+        stage <- cut(week, breaks=c(floor(min(week)), 16,
+                             ceiling(max(week))),
+                     labels=c("pre", "post"), include.lowest=TRUE)
+    })
+    cd4New <- within(cd4New, {
+        stage <- ifelse(week > 16, week, 0)
+    })
+    summary(cd4New)
+    stdcontr <- getOption("contrasts")
+    ## Model in p. 227
+    (fm1 <- lmer(logCD4 ~ week + stage + treatment:week + treatment:stage +
+                 (week + stage | id), data=cd4New))
+    options(contrasts=c(unordered="contr.SAS", ordered="contr.poly"))
+    (fm1 <- lmer(percent.fat ~ time.menarche + stage + (1 + time.menarche + stage | id),
+                 data=fatNew))
+    options(contrasts=stdcontr)
+    ## Table 8.3
+    VarCorr(fm1)$id * 100
+    ## Reconstruct the "marginal" correlation matrix (Table 8.4)
+    fm1.fx <- fixef(fm1)                # vector of fixed effects
+    fm1.mm <- model.matrix(fm1)
+    fm1.mg <- fm1.mm %*% fm1.fx         # E(Y_{ij} | X_{ij}\beta)
+    ## with(fev1OK, cov(cbind(fm1.mg[age==0], fm1.mg[age==1],
+    ##                        fm1.mg[age==2], fm1.mg[age==3])))
+
+    ## Model in p. 216
+    (fm2 <- update(fm1, . ~ . - (age | id) + (log(height) | id)))
+
+    ## Refit to make comparisons and see that we reach the same conclusion
+    ## as that reached by simply comparing the log likelihood of the REML
+    ## estimates, as done in the book
+    fm1ML <- update(fm1, REML=FALSE)
+    fm2ML <- update(fm2, REML=FALSE)
+    anova(fm1ML, fm2ML)
+}
+
 
 
 ###_ + Emacs local variables

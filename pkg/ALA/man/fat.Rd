@@ -84,6 +84,52 @@
 str(fat)
 summary(fat)
 
+if (require(lattice)) {
+    ## Fig. 8.5 (roughly)
+    xyplot(percent.fat ~ time.menarche, data=fat, groups=id, type="b",
+           cex=0.5, col=1,
+           xlab="Time relative to menarche (weeks)",
+           ylab="Percent body fat")
+    ## Fig. 8.6 (roughly)
+    xyplot(percent.fat ~ time.menarche, data=fat,
+           cex=0.5, col=1,
+           xlab="Time relative to menarche (years)",
+           ylab="Percent body fat",
+           panel=function(x, y, ...) {
+               panel.abline(v=0, lty=2)
+               panel.xyplot(x, y, ...)
+               panel.loess(x, y, ...)
+           })
+}
+
+if (require(lme4)) {
+    fatNew <- within(fat, {
+        stage <- pmax(time.menarche, 0)
+    })
+    summary(fatNew)
+    ## Model in p. 218
+    (fm1 <- lmer(percent.fat ~ time.menarche + stage + (time.menarche + stage | id),
+                 data=fatNew))
+    ## Table 8.7
+    VarCorr(fm1)[[1]]
+    ## Fig. 8.7 (roughly)
+    set.seed(1234); rndID <- sample(levels(fatNew$id), 2)
+    tm <- with(fatNew, seq(floor(min(time.menarche)),
+                           ceiling(max(time.menarche))))
+    fitted.pf <- fitted(fm1)
+    avg.modmat <- cbind(1, tm, pmax(tm, 0))
+    pred.fixef <- avg.modmat \%*\% fixef(fm1)
+    plot(pred.fixef ~ avg.modmat[, 2], type="l", ylim=c(5, 35),
+         xlab="Time relative to menarche (years)",
+         ylab="Percent body fat")
+    with(fatNew, {
+        points(time.menarche[id == rndID[1]], percent.fat[id == rndID[1]])
+        lines(time.menarche[id == rndID[1]], fitted.pf[id == rndID[1]])
+        points(time.menarche[id == rndID[2]], percent.fat[id == rndID[2]], pch=2)
+        lines(time.menarche[id == rndID[2]], fitted.pf[id == rndID[2]], lty=2)
+    })
+}
+
 }
 
 
