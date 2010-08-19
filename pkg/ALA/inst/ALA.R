@@ -1,7 +1,7 @@
 ### ALA.R --- Preparing data for ALA package
 ## Author: Sebastian P. Luque
 ## Created: Fri Aug 13 22:35:06 2010 (UTC)
-## Last-Updated: Thu Aug 19 17:25:56 2010 (UTC)
+## Last-Updated: Thu Aug 19 19:16:34 2010 (UTC)
 ##           By: Sebastian P. Luque
 ## copyright (c) 2010 Sebastian P. Luque
 ###
@@ -725,7 +725,7 @@ if (require(lme4)) {
     fitted.pf <- fitted(fm1)
     avg.modmat <- cbind(1, tm, pmax(tm, 0))
     pred.fixef <- avg.modmat %*% fixef(fm1)
-    plot(pred.fixef ~ avg.modmat[, 2], type="l", ylim=c(5, 35),
+    plot(pred.fixef ~ avg.modmat[, 2], type="l", ylim=c(5, 35), lwd=2,
          xlab="Time relative to menarche (years)",
          ylab="Percent body fat")
     with(fatNew, {
@@ -771,20 +771,28 @@ if (require(lme4)) {
                  age + gender + (week + stage | id), data=cd4New))
 
     ## Fig. 8.7 (roughly)
-    set.seed(1234); rndID <- sample(levels(cd4New$id), 2)
+    set.seed(12)
+    rndID <- as.character(with(cd4New,
+                               sample(unique(id[treatment == "triple" &
+                                                gender == "M"]), 2)))
     wk <- with(cd4New, seq(floor(min(week)), ceiling(max(week))))
     st <- ifelse(wk > 16, wk - 16, 0)
-    avg.modmat <- cbind(1, wk, st, 45, 1, 1)
+    mm <- model.matrix(logCD4 ~ week + stage + treatment:(week - stage) +
+                       age + gender,
+                       data=with(cd4New,
+                         data.frame(treatment=treatment[treatment == "triple"][1],
+                                    age=45, gender=gender[gender == "M"][1],
+                                    week=wk, stage=st, logCD4=rnorm(length(wk)))))
+    pred.fixef <- mm %*% fixef(fm2)
     fitted.cd4 <- fitted(fm2)
-    pred.fixef <- avg.modmat %*% fixef(fm2)
-    plot(pred.fixef ~ avg.modmat[, 2], type="l", ylim=c(2, 6),
+    plot(pred.fixef ~ mm[, 2], type="l", lwd=2, ylim=range(fitted.cd4),
          xlab="Time (weeks)",
          ylab="Log(CD4 + 1)")
-    with(fatNew, {
-        points(time.menarche[id == rndID[1]], percent.fat[id == rndID[1]])
-        lines(time.menarche[id == rndID[1]], fitted.pf[id == rndID[1]])
-        points(time.menarche[id == rndID[2]], percent.fat[id == rndID[2]], pch=2)
-        lines(time.menarche[id == rndID[2]], fitted.pf[id == rndID[2]], lty=2)
+    with(cd4New, {
+        points(week[id == rndID[1]], logCD4[id == rndID[1]])
+        lines(week[id == rndID[1]], fitted.cd4[id == rndID[1]])
+        points(week[id == rndID[2]], logCD4[id == rndID[2]], pch=2)
+        lines(week[id == rndID[2]], fitted.cd4[id == rndID[2]], lty=2)
     })
 }
 

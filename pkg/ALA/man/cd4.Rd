@@ -123,8 +123,32 @@ if (require(lme4)) {
     ## Model in p. 229
     (fm2 <- lmer(logCD4 ~ week + stage + treatment:(week - stage) +
                  age + gender + (week + stage | id), data=cd4New))
-}
 
+    ## Fig. 8.7 (roughly)
+    set.seed(12)
+    rndID <- as.character(with(cd4New,
+                               sample(unique(id[treatment == "triple" &
+                                                gender == "M"]), 2)))
+    wk <- with(cd4New, seq(floor(min(week)), ceiling(max(week))))
+    st <- ifelse(wk > 16, wk - 16, 0)
+    mm <- model.matrix(logCD4 ~ week + stage + treatment:(week - stage) +
+                       age + gender,
+                       data=with(cd4New,
+                         data.frame(treatment=treatment[treatment == "triple"][1],
+                                    age=45, gender=gender[gender == "M"][1],
+                                    week=wk, stage=st, logCD4=rnorm(length(wk)))))
+    pred.fixef <- mm \%*\% fixef(fm2)
+    fitted.cd4 <- fitted(fm2)
+    plot(pred.fixef ~ mm[, 2], type="l", lwd=2, ylim=range(fitted.cd4),
+         xlab="Time (weeks)",
+         ylab="Log(CD4 + 1)")
+    with(cd4New, {
+        points(week[id == rndID[1]], logCD4[id == rndID[1]])
+        lines(week[id == rndID[1]], fitted.cd4[id == rndID[1]])
+        points(week[id == rndID[2]], logCD4[id == rndID[2]], pch=2)
+        lines(week[id == rndID[2]], fitted.cd4[id == rndID[2]], lty=2)
+    })
+}
 
 }
 

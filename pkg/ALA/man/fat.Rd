@@ -119,7 +119,7 @@ if (require(lme4)) {
     fitted.pf <- fitted(fm1)
     avg.modmat <- cbind(1, tm, pmax(tm, 0))
     pred.fixef <- avg.modmat \%*\% fixef(fm1)
-    plot(pred.fixef ~ avg.modmat[, 2], type="l", ylim=c(5, 35),
+    plot(pred.fixef ~ avg.modmat[, 2], type="l", ylim=c(5, 35), lwd=2,
          xlab="Time relative to menarche (years)",
          ylab="Percent body fat")
     with(fatNew, {
