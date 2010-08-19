@@ -1,7 +1,7 @@
 ### ALA.R --- Preparing data for ALA package
 ## Author: Sebastian P. Luque
 ## Created: Fri Aug 13 22:35:06 2010 (UTC)
-## Last-Updated: Thu Aug 19 19:16:34 2010 (UTC)
+## Last-Updated: Thu Aug 19 22:07:16 2010 (UTC)
 ##           By: Sebastian P. Luque
 ## copyright (c) 2010 Sebastian P. Luque
 ###
@@ -795,6 +795,73 @@ if (require(lme4)) {
         lines(week[id == rndID[2]], fitted.cd4[id == rndID[2]], lty=2)
     })
 }
+
+## Problems with the exercise data
+
+## 8.1
+str(exercise)
+
+if (require(lattice)) {
+    xyplot(strength ~ day | treatment, data=exercise, groups=id,
+           type="l", cex=0.5, col=1,
+           scales=list(alternating=1, rot=c(0, 1), tck=c(0.5, 0)),
+           xlab="Time (days)", ylab="Strength",
+           panel=function(x, y, ...) {
+               panel.superpose(x, y, ...)
+               ym <- tapply(y, factor(x), mean, na.rm=TRUE)
+               panel.xyplot(unique(x), ym, lwd=3, ...)
+           })
+}
+
+if (require(lme4)) {
+    ## 8.1.3
+    fm1 <- lmer(strength ~ day + treatment + (day + treatment | id),
+                 data=exercise)
+    VarCorr(fm1)
+    fm1ML <- update(fm1, REML=FALSE)
+    fm2 <- lmer(strength ~ day + treatment + (0 + day + treatment | id),
+                 data=exercise)
+    fm2ML <- update(fm2, REML=FALSE)
+    ## 8.1.4
+    anova(fm2ML, fm1ML)
+    ## 8.1.5
+    fixef(fm1); fixef(fm2)
+    ## 8.1.8
+    coef(fm1)
+}
+
+## 8.2
+str()
+
+if (require(lattice)) {
+    xyplot(strength ~ day | treatment, data=exercise, groups=id,
+           type="l", cex=0.5, col=1,
+           scales=list(alternating=1, rot=c(0, 1), tck=c(0.5, 0)),
+           xlab="Time (days)", ylab="Strength",
+           panel=function(x, y, ...) {
+               panel.superpose(x, y, ...)
+               ym <- tapply(y, factor(x), mean, na.rm=TRUE)
+               panel.xyplot(unique(x), ym, lwd=3, ...)
+           })
+}
+
+if (require(lme4)) {
+    ## 8.1.3
+    fm1 <- lmer(strength ~ day + treatment + (day + treatment | id),
+                 data=exercise)
+    VarCorr(fm1)
+    fm1ML <- update(fm1, REML=FALSE)
+    fm2 <- lmer(strength ~ day + treatment + (0 + day + treatment | id),
+                 data=exercise)
+    fm2ML <- update(fm2, REML=FALSE)
+    ## 8.1.4
+    anova(fm2ML, fm1ML)
+    ## 8.1.5
+    fixef(fm1); fixef(fm2)
+    ## 8.1.8
+    coef(fm1)
+}
+
 
 
 

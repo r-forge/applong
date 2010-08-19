@@ -78,6 +78,36 @@
 str(exercise)
 summary(exercise)
 
+if (require(lattice)) {
+    xyplot(strength ~ day | treatment, data=exercise, groups=id,
+           type="l", cex=0.5, col=1,
+           scales=list(alternating=1, rot=c(0, 1), tck=c(0.5, 0)),
+           xlab="Time (days)", ylab="Strength",
+           panel=function(x, y, ...) {
+               panel.superpose(x, y, ...)
+               ym <- tapply(y, factor(x), mean, na.rm=TRUE)
+               panel.xyplot(unique(x), ym, lwd=3, ...)
+           })
+}
+
+if (require(lme4)) {
+    ## 8.1.3
+    fm1 <- lmer(strength ~ day + treatment + (day + treatment | id),
+                 data=exercise)
+    VarCorr(fm1)
+    fm1ML <- update(fm1, REML=FALSE)
+    fm2 <- lmer(strength ~ day + treatment + (0 + day + treatment | id),
+                 data=exercise)
+    fm2ML <- update(fm2, REML=FALSE)
+    ## 8.1.4
+    anova(fm2ML, fm1ML)
+    ## 8.1.5
+    fixef(fm1); fixef(fm2)
+    ## 8.1.8
+    coef(fm1)
+}
+
+
 }
 
 
