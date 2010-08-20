@@ -104,12 +104,24 @@ if (require(lattice)) {
 
 if (require(lme4)) {
     fatNew <- within(fat, {
-        stage <- pmax(time.menarche, 0)
+        ## Create the stage factor -- this is what is needed to make the
+        ## same interpretations as in the book
+        stage <- cut(time.menarche,
+                     breaks=c(floor(min(time.menarche)), 0,
+                       ceiling(max(time.menarche))),
+                     labels=c("pre", "post"))
+        ## But this is what is actually used
+        stage.tij <- pmax(time.menarche, 0)
     })
     summary(fatNew)
     ## Model in p. 218
-    (fm1 <- lmer(percent.fat ~ time.menarche + stage + (time.menarche + stage | id),
-                 data=fatNew))
+    (fm1 <- lmer(percent.fat ~ time.menarche + stage.tij +
+                 (time.menarche + stage.tij | id), data=fatNew))
+    ## which is the same as a model using the interaction with the stage
+    ## factor; i.e. no interest in intercept differences between stages,
+    ## only in slope differences
+    (fm1b <- lmer(percent.fat ~ time.menarche + time.menarche:stage +
+                  (time.menarche:stage | id), data=fatNew))
     ## Table 8.7
     VarCorr(fm1)[[1]]
     ## Fig. 8.7 (roughly)

@@ -1,7 +1,7 @@
 ### ALA.R --- Preparing data for ALA package
 ## Author: Sebastian P. Luque
 ## Created: Fri Aug 13 22:35:06 2010 (UTC)
-## Last-Updated: Thu Aug 19 22:07:16 2010 (UTC)
+## Last-Updated: Fri Aug 20 17:55:14 2010 (UTC)
 ##           By: Sebastian P. Luque
 ## copyright (c) 2010 Sebastian P. Luque
 ###
@@ -700,22 +700,25 @@ if (require(lattice)) {
 }
 
 if (require(lme4)) {
-    ## ## Create the stage factor -- this is what I think should be done to
-    ## ## make the interpretations the authors are making
-    ## fatNew <- within(fat, {
-    ##     stage <- cut(time.menarche,
-    ##                  breaks=c(floor(min(time.menarche)), 0,
-    ##                    ceiling(max(time.menarche))),
-    ##                  labels=c("pre", "post"))
-    ## })
-    ## But this is what is actually done
     fatNew <- within(fat, {
-        stage <- pmax(time.menarche, 0)
+        ## Create the stage factor -- this is what is needed to make the
+        ## same interpretations as in the book
+        stage <- cut(time.menarche,
+                     breaks=c(floor(min(time.menarche)), 0,
+                       ceiling(max(time.menarche))),
+                     labels=c("pre", "post"))
+        ## But this is what is actually used
+        stage.tij <- pmax(time.menarche, 0)
     })
     summary(fatNew)
     ## Model in p. 218
-    (fm1 <- lmer(percent.fat ~ time.menarche + stage + (time.menarche + stage | id),
-                 data=fatNew))
+    (fm1 <- lmer(percent.fat ~ time.menarche + stage.tij +
+                 (time.menarche + stage.tij | id), data=fatNew))
+    ## which is the same as a model using the interaction with the stage
+    ## factor; i.e. no interest in intercept differences between stages,
+    ## only in slope differences
+    (fm1b <- lmer(percent.fat ~ time.menarche + time.menarche:stage +
+                  (time.menarche:stage | id), data=fatNew))
     ## Table 8.7
     VarCorr(fm1)[[1]]
     ## Fig. 8.7 (roughly)
@@ -803,7 +806,7 @@ str(exercise)
 
 if (require(lattice)) {
     xyplot(strength ~ day | treatment, data=exercise, groups=id,
-           type="l", cex=0.5, col=1,
+           type="l", cex=0.5,# col=1,
            scales=list(alternating=1, rot=c(0, 1), tck=c(0.5, 0)),
            xlab="Time (days)", ylab="Strength",
            panel=function(x, y, ...) {
@@ -814,19 +817,17 @@ if (require(lattice)) {
 }
 
 if (require(lme4)) {
-    ## 8.1.3
-    fm1 <- lmer(strength ~ day + treatment + (day + treatment | id),
-                 data=exercise)
+    ## Problem 8.1.3
+    fm1 <- lmer(strength ~ day * treatment + (day | id), data=exercise)
     VarCorr(fm1)
     fm1ML <- update(fm1, REML=FALSE)
-    fm2 <- lmer(strength ~ day + treatment + (0 + day + treatment | id),
-                 data=exercise)
+    ## Problem 8.1.4
+    fm2 <- lmer(strength ~ day * treatment + (1 | id), data=exercise)
     fm2ML <- update(fm2, REML=FALSE)
-    ## 8.1.4
     anova(fm2ML, fm1ML)
-    ## 8.1.5
+    ## Problem 8.1.5
     fixef(fm1); fixef(fm2)
-    ## 8.1.8
+    ## Problem 8.1.8
     coef(fm1)
 }
 
