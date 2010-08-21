@@ -1,7 +1,7 @@
 ### ALA.R --- Preparing data for ALA package
 ## Author: Sebastian P. Luque
 ## Created: Fri Aug 13 22:35:06 2010 (UTC)
-## Last-Updated: Fri Aug 20 17:55:14 2010 (UTC)
+## Last-Updated: Sat Aug 21 23:33:59 2010 (UTC)
 ##           By: Sebastian P. Luque
 ## copyright (c) 2010 Sebastian P. Luque
 ###
@@ -755,23 +755,29 @@ if (require(lattice)) {
 
 if (require(lme4)) {
     str(cd4New)
-    ## cd4New <- within(cd4New, {
-    ##     stage <- cut(week, breaks=c(floor(min(week)), 16,
-    ##                          ceiling(max(week))),
-    ##                  labels=c("pre", "post"), include.lowest=TRUE)
-    ## })
     cd4New <- within(cd4New, {
-        stage <- ifelse(week > 16, week - 16, 0)
+        ## Use a stage factor -- this is what is needed to make the same
+        ## interpretations as in the book
+        stage <- cut(week, breaks=c(floor(min(week)), 16,
+                             ceiling(max(week))),
+                     labels=c("pre", "post"), include.lowest=TRUE)
+        ## But this is what is actually used
+        stage.tij <- ifelse(week > 16, week - 16, 0)
     })
     summary(cd4New)
     ## Model in p. 227
-    (fm1 <- lmer(logCD4 ~ week + stage + treatment:week + treatment:stage +
-                 (week + stage | id), data=cd4New))
+    (fm1 <- lmer(logCD4 ~ week + stage.tij + week:treatment +
+                 stage.tij:treatment + (week + stage.tij | id), data=cd4New))
+    ## This should be an equivalent model using the stage factor, but we
+    ## don't get the same coefficients
+    (fm1b <- lmer(logCD4 ~ week + week:stage + week:treatment +
+                  week:stage:treatment + (week + week:stage | id), data=cd4New,
+                  control=list(maxIter=2000, maxFN=2000)))
     ## Table 8.13
     VarCorr(fm1)[[1]] * 1000
-    ## Model in p. 229
-    (fm2 <- lmer(logCD4 ~ week + stage + treatment:(week - stage) +
-                 age + gender + (week + stage | id), data=cd4New))
+    ## Model in p. 229 -- we don't get quite the same coefficients
+    (fm2 <- lmer(logCD4 ~ week + stage.tij + treatment:(week - stage) +
+                 age + gender + (week + stage.tij | id), data=cd4New))
 
     ## Fig. 8.7 (roughly)
     set.seed(12)
@@ -830,39 +836,6 @@ if (require(lme4)) {
     ## Problem 8.1.8
     coef(fm1)
 }
-
-## 8.2
-str()
-
-if (require(lattice)) {
-    xyplot(strength ~ day | treatment, data=exercise, groups=id,
-           type="l", cex=0.5, col=1,
-           scales=list(alternating=1, rot=c(0, 1), tck=c(0.5, 0)),
-           xlab="Time (days)", ylab="Strength",
-           panel=function(x, y, ...) {
-               panel.superpose(x, y, ...)
-               ym <- tapply(y, factor(x), mean, na.rm=TRUE)
-               panel.xyplot(unique(x), ym, lwd=3, ...)
-           })
-}
-
-if (require(lme4)) {
-    ## 8.1.3
-    fm1 <- lmer(strength ~ day + treatment + (day + treatment | id),
-                 data=exercise)
-    VarCorr(fm1)
-    fm1ML <- update(fm1, REML=FALSE)
-    fm2 <- lmer(strength ~ day + treatment + (0 + day + treatment | id),
-                 data=exercise)
-    fm2ML <- update(fm2, REML=FALSE)
-    ## 8.1.4
-    anova(fm2ML, fm1ML)
-    ## 8.1.5
-    fixef(fm1); fixef(fm2)
-    ## 8.1.8
-    coef(fm1)
-}
-
 
 
 

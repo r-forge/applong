@@ -112,17 +112,30 @@ if (require(lattice)) {
 if (require(lme4)) {
     str(cd4New)
     cd4New <- within(cd4New, {
-        stage <- ifelse(week > 16, week - 16, 0)
+        ## Use a stage factor -- this is what is needed to make the same
+        ## interpretations as in the book
+        stage <- cut(week, breaks=c(floor(min(week)), 16,
+                             ceiling(max(week))),
+                     labels=c("pre", "post"), include.lowest=TRUE)
+        ## But this is what is actually used
+        stage.tij <- ifelse(week > 16, week - 16, 0)
     })
     summary(cd4New)
     ## Model in p. 227
-    (fm1 <- lmer(logCD4 ~ week + stage + treatment:week + treatment:stage +
-                 (week + stage | id), data=cd4New))
+    (fm1 <- lmer(logCD4 ~ week + stage.tij + week:treatment +
+                 stage.tij:treatment + (week + stage.tij | id), data=cd4New))
+\dontrun{
+    ## This should be an equivalent model using the stage factor, but we
+    ## don't get quite the same coefficients
+    (fm1b <- lmer(logCD4 ~ week + week:stage + week:treatment +
+                  week:stage:treatment + (week + week:stage | id), data=cd4New,
+                  control=list(maxIter=2000, maxFN=2000)))
+}
     ## Table 8.13
     VarCorr(fm1)[[1]] * 1000
-    ## Model in p. 229
-    (fm2 <- lmer(logCD4 ~ week + stage + treatment:(week - stage) +
-                 age + gender + (week + stage | id), data=cd4New))
+    ## Model in p. 229 -- we don't get quite the same coefficients
+    (fm2 <- lmer(logCD4 ~ week + stage.tij + treatment:(week - stage) +
+                 age + gender + (week + stage.tij | id), data=cd4New))
 
     ## Fig. 8.7 (roughly)
     set.seed(12)
