@@ -1,3 +1,8 @@
+2010-08-21  Sebastian P. Luque <spluque@gmail.com>
+
+	* ChangeLog, inst/ALA.R, man/cd4.Rd:
+	  Included alternative model with factor with the cd4 dataset.
+
 2010-08-20  Sebastian P. Luque <spluque@gmail.com>
 
 	* inst/ALA.R, man/exercise.Rd, man/fat.Rd:
