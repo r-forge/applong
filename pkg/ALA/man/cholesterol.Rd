@@ -27,8 +27,8 @@
   \describe{
     
     \item{\code{id}}{a factor with 65 levels}
-    \item{\code{treatment}}{a factor with levels \code{chenodiol} and
-      \code{placebo}}
+    \item{\code{treatment}}{a factor with levels \code{placebo} and
+      \code{chenodiol}}
     \item{\code{month}}{a numeric vector}
     \item{\code{cholesterol}}{a numeric vector}
 

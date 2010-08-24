@@ -27,8 +27,8 @@
   \describe{
     
     \item{\code{id}}{a factor with 100 levels}
-    \item{\code{treatment}}{a factor with levels \code{succimer} and
-      \code{placebo}}
+    \item{\code{treatment}}{a factor with levels \code{placebo} and
+      \code{succimer}}
     \item{\code{week}}{a numeric vector}
     \item{\code{lead}}{a numeric vector}
     
