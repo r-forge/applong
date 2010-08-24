@@ -1,7 +1,7 @@
 ### ALA.R --- Preparing data for ALA package
 ## Author: Sebastian P. Luque
 ## Created: Fri Aug 13 22:35:06 2010 (UTC)
-## Last-Updated: Sat Aug 21 23:33:59 2010 (UTC)
+## Last-Updated: Tue Aug 24 03:07:14 2010 (UTC)
 ##           By: Sebastian P. Luque
 ## copyright (c) 2010 Sebastian P. Luque
 ###
@@ -158,6 +158,7 @@ save(chd, file="../data/chd.rda")
 names(cholesterol) <- c("treatment", "id", "0", "6", "12", "20", "24")
 cholesterol <- within(cholesterol, {
     treatment <- factor(treatment, labels=c("chenodiol", "placebo"))
+    treatment <- relevel(treatment, ref="placebo")
     id <- factor(id)
 })
 cholesterol.m <- melt(cholesterol, measure.vars=3:7,
@@ -462,6 +463,7 @@ respir <- within(respir, {
     center <- factor(paste("C", center, sep=""))
     id <- factor(id)
     treatment <- factor(treatment, labels=c("active", "placebo"))
+    treatment <- relevel(treatment, ref="placebo")
     gender <- factor(gender)
 })
 ## Reshape
@@ -536,6 +538,7 @@ names(tlc) <- c("id", "treatment", "0", "1", "4", "6")
 tlc <- within(tlc, {
     id <- factor(id)
     treatment <- factor(treatment, labels=c("succimer", "placebo"))
+    treatment <- relevel(treatment, ref="placebo")
 })
 ## Reshape
 tlc.m <- melt(tlc, measure.vars=3:6, variable_name="week")
@@ -633,6 +636,36 @@ library(ALA)
 
 ###_  . Chapter 8
 
+## p. 152
+str(smoking)
+
+if (require(lme4)) {
+    ## Assuming this is the random effect structure in p. 152
+    lmer(FEV1 ~ smoker * year + (year | id), data=smoking,
+         control=list(maxIter=2000))
+}
+
+## p. 155
+if (require(lattice)) {
+    ## Fig. 6.5 (roughly)
+    xyplot(lead ~ week, data=tlc, groups=treatment, type=c("p", "a"),
+           cex=0.5,
+           xlab="Time (weeks)", ylab="Mean blood lead level (mcg/dL)",
+           scales=list(rot=c(0, 1), tck=c(0.5, 0)))
+}
+
+if (require(lme4)) {
+    tlcNew <- within(tlc, {
+        week1 <- ifelse(week > 1, week - 1, 0)
+    })
+    summary(tlcNew)
+    ## Assuming this is the random effect structure used in p. 155
+    lmer(lead ~ week + week1 + week:treatment + week1:treatment +
+         (week + week1 | id), data=tlcNew)
+}
+
+
+## First example
 if (require(lattice)) {
     fev1.e <- exp(fev1$logFEV1)
     set.seed(1234); ids <- sample(levels(fev1$id), 50)
@@ -645,7 +678,6 @@ if (require(lattice)) {
            ylim=c(-0.3, 1.2))
 }
 
-## First example
 if (require(lme4)) {
     fev1OK <- subset(fev1, logFEV1 > -0.5)
     ## Model in p. 213
@@ -773,6 +805,9 @@ if (require(lme4)) {
     (fm1b <- lmer(logCD4 ~ week + week:stage + week:treatment +
                   week:stage:treatment + (week + week:stage | id), data=cd4New,
                   control=list(maxIter=2000, maxFN=2000)))
+    (fm1b <- lmer(logCD4 ~ week + week:stage + week:treatment +
+                  week:stage:treatment + (week:stage | id),
+                  data=cd4New, control=list(maxIter=2000, maxFN=2000)))
     ## Table 8.13
     VarCorr(fm1)[[1]] * 1000
     ## Model in p. 229 -- we don't get quite the same coefficients

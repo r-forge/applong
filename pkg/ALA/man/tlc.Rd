@@ -78,6 +78,24 @@
 str(tlc)
 summary(tlc)
 
+if (require(lattice)) {
+    ## Fig. 6.5 (roughly)
+    xyplot(lead ~ week, data=tlc, groups=treatment, type=c("p", "a"),
+           cex=0.5,
+           xlab="Time (weeks)", ylab="Mean blood lead level (mcg/dL)",
+           scales=list(rot=c(0, 1), tck=c(0.5, 0)))
+}
+
+if (require(lme4)) {
+    tlcNew <- within(tlc, {
+        week1 <- ifelse(week > 1, week - 1, 0)
+    })
+    summary(tlcNew)
+    ## Assuming this is the random effect structure used in p. 155
+    lmer(lead ~ week + week1 + week:treatment + week1:treatment +
+         (week + week1 | id), data=tlcNew)
+}
+
 }
 
 

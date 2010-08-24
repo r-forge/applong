@@ -93,6 +93,12 @@
 str(smoking)
 summary(smoking)
 
+if (require(lme4)) {
+    ## Assuming this is the random effect structure in p. 152
+    lmer(FEV1 ~ smoker * year + (year | id), data=smoking,
+         control=list(maxIter=2000))
+}
+
 }
 
 
